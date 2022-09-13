@@ -8,7 +8,7 @@ body
     background-position : center;
 
 }
-.Sign-up-form
+.Login-form
 {
     width : 300px;
     box-shadow : 0 0 3px 0 rgba(0,0,0,0.3);
@@ -17,26 +17,10 @@ body
     margin : 8% auto 0;
     text-align : center;
 }
-.Sign-up-form h1
+.Login-form h1
 {
     color : #1c8adb;
     margin-bottom : 20px
-}
-button
-{
-    color : #fff;
-    width : 100%;
-    padding : 10px;
-    border-radius : 20px;
-    font-size : 15px;
-    margin : 10px 0;
-    border : none;
-    outline : none;
-    cursor : pointer;
-}
-.signup-btn
-{
-    background-color : #1c8adb;
 }
 .input-box
 {
@@ -51,14 +35,19 @@ button
 {
     width :20px;
 }
-hr
+button
 {
-    margin-top : 20px;
-    width : 80%;
+    color : #fff;
+    width : 70%;
+    padding : 10px;
+    border-radius : 20px;
+    font-size : 15px;
+    margin : 10px 0;
+    border : none;
+    outline : none;
+    cursor : pointer;
 }
-.or
+.login-btn
 {
-    background : #fff;
-    width : 30px;
-    margin : -19px auto 10px;
+    background-color : #1c8adb;
 }
