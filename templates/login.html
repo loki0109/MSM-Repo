@@ -1,11 +1,11 @@
 <html>
 <head>
 <title> Login Page </title>
-<link rel = "stylesheet" href = "login_style.css">
+<link rel = "stylesheet" href = "{{url_for('static',filename='css/login_style.css')}}">
 </head>
   <body>
   <div class = "Login-form">
-    <img src = "msmlogo.jpeg" alt="MSM_logo" width="120"
+    <img src = "{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="120"
     height="120">
     <h1> Login Now </h1>
     <form>
@@ -14,6 +14,7 @@
     <button type = "button" class = "login-btn">Login</button>
     <br>
     <br>
+    <p>Do you have an account ? <a href = "signup">Sign Up</a></p>
     </form>
   </div>  
   </body>

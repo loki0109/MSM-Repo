@@ -1,27 +1,28 @@
 <html>
+
 <head>
-<title> Sign Up Page </title>
-<link rel = "stylesheet" href = "signup_style.css">
+  <title> Sign Up Page </title>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/signup_style.css')}}">
 </head>
-  <body>
-  <div class = "Sign-up-form">
-    <img src = "msmlogo.jpeg" alt="MSM_logo" width="120"
-    height="120">
+
+<body>
+  <div class="Sign-up-form">
+    <img src="{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="120" height="120">
     <h1> Sign Up Now </h1>
     <form>
-    <input type = "Full Name" class = "input-box" placeholder = "Your Full name">
-    <input type = "Email" class = "input-box" placeholder = "Your Email">
-    <hr>
-    <input type = "User_name" class = "input-box" placeholder = "Username">
-    <input type = "Password" class = "input-box" placeholder = "Password">
-    <button type="button" class = "signup-btn" 
-    onclick="alert('Username & Password will be used for login!')">Sign up</button>
-    <br>
-    <br>
-    <hr>
-    <p class = "or">OR</p>
-    <p>Do you have an account ? <a href = "login.html">Sign in</a></p>
+      <input type="Full_name" class="input-box" placeholder="Your Full name">
+      <input type="Email" class="input-box" placeholder="Your Email">
+      <hr>
+      <input type="User_name" class="input-box" placeholder="Username">
+      <input type="Password" class="input-box" placeholder="Password">
+      <button type="submit" class="signup-btn">Sign up</button>
+      <br>
+      <br>
+      <hr>
+      <p class="or">OR</p>
+      <p>Do you have an account ? <a href="/login">Sign in</a></p>
     </form>
   </div>
-  </body>
+</body>
+
 </html>
