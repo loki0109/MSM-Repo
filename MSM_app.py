@@ -1,6 +1,6 @@
 from ast import Pass
 from asyncio.windows_events import NULL
-from flask import Flask,render_template,request,Response,json, flash, redirect, url_for,session
+from flask import Flask,render_template,request,Response,json,flash, redirect,url_for,session
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 
@@ -19,8 +19,6 @@ def signup():
         Email = request.form['Email']
         User_name = request.form['User_name']
         Password = request.form['Password']
-        print(Password)
-        print(Email)
         hashed_password = bcrypt.generate_password_hash(Password).decode('utf-8')
         if((db.count_documents({'email':Email}))!=0):
             flash(f'Email Id already exists!!!','danger')
@@ -33,13 +31,13 @@ def signup():
                 'Password': hashed_password
             }
             db.insert_one(new_user)
-            print(new_user)
-            flash(f'User{Full_name} is successfully created','success')
+            flash(f'User {Full_name} is successfully created','success')
             return redirect(url_for('login'))
     return render_template('signup.html')
     
 @app.route("/login", methods = ["GET"])
 def login():
+    
     return render_template("login.html")
 
 if __name__ == "__main__":

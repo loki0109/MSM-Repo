@@ -12,6 +12,26 @@ body{
 }
   </style>
   <body>
+    <h4>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+    
+      {% if messages %}
+    
+          {% for category, message in messages %}
+    
+              <div class="alert alert-{{ category }}">
+    
+                  {{ message }}
+    
+              </div>
+    
+          {% endfor %}
+    
+      {% endif %}
+    
+      {% endwith %}
+    
+      </h4>
   <div class = "Login-form">
     <img src = "{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="120"
     height="120">
