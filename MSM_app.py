@@ -1,6 +1,6 @@
 from ast import Pass
 from asyncio.windows_events import NULL
-from flask import Flask,render_template,request,Response,json,flash, redirect,url_for,session
+from flask import Flask,render_template,request,Response,json,flash,redirect,url_for,session
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 
@@ -12,6 +12,7 @@ bcrypt = Bcrypt(app)
 db = mongo.db.users
 
 app.secret_key = "loki-1238sanmxg-dcj1248o"
+
 @app.route("/signup",methods = ["POST", "GET"])
 def signup():  
     if request.method == "POST":
@@ -35,10 +36,23 @@ def signup():
             return redirect(url_for('login'))
     return render_template('signup.html')
     
-@app.route("/login", methods = ["GET"])
+@app.route("/login", methods = ["GET","POST"])
 def login():
-    
+    if request.method == "POST":
+        username = request.form["User_name"]
+        password = request.form["Password"]
+        name_pass = db.find_one({'User_name':username},{'_id':0,'Password':1})
+        print(bcrypt.check_password_hash(name_pass['Password'],password))
+        if bcrypt.check_password_hash(name_pass['Password'],password):
+            flash(f'User logged in successfully','success')
+            return redirect(url_for('home'))
+        else:
+            flash(f'Invalid credentials','danger')
     return render_template("login.html")
+
+@app.route("/home",methods = ["POST","GET"])
+def home():
+    return render_template("home.html")
 
 if __name__ == "__main__":
     app.run(debug = True)
