@@ -3,7 +3,7 @@ body
     margin : 0;
     padding : 0;
     font-family : sans-serif;
-    background-image : url(bgimg.jpg);
+    background-image : url("static/images/bgimg.jpg");
     background-size : cover;
     background-position : center;
 
@@ -61,4 +61,8 @@ hr
     background : #fff;
     width : 30px;
     margin : -19px auto 10px;
+}
+h4
+{
+    color : #ff0000
 }

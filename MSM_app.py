@@ -7,6 +7,7 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__)
 app.config['MONGO_URI'] = "mongodb://localhost:27017/msm_db"
 mongo = PyMongo(app)
+bcrypt = Bcrypt(app)
 
 db = mongo.db.users
 
@@ -18,23 +19,24 @@ def signup():
         Email = request.form['Email']
         User_name = request.form['User_name']
         Password = request.form['Password']
+        print(Password)
         print(Email)
-        # hashed_password = Bcrypt.generate_password_hash(Password).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(Password).decode('utf-8')
         if((db.count_documents({'email':Email}))!=0):
-
-            flash(f'Email Id already exists','danger')
+            flash(f'Email Id already exists!!!','danger')
+            
         else:
             new_user = {
                 'name': Full_name,
                 'email':Email,
                 'User_name':User_name,
-                'Password': Password
+                'Password': hashed_password
             }
             db.insert_one(new_user)
             print(new_user)
             flash(f'User{Full_name} is successfully created','success')
             return redirect(url_for('login'))
-        return render_template('signup.html')
+    return render_template('signup.html')
     
 @app.route("/login", methods = ["GET"])
 def login():
