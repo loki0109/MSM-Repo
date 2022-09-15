@@ -75,9 +75,13 @@ def logout():
     session["email"] = None
     return redirect("/homepage")
     
-@app.route("/image_upload",methods = ["POST","GET"])
+@app.route("/image_upload",methods = ["GET","POST"])
 def image_upload():
-    return render_template("image_upload.html")
+    if "uploaded_image" in request.files :
+        uploaded_image = request.files['uploaded_image']
+        mongo.save_file(uploaded_image.filename, uploaded_image)
+        mongo.db.photos.insert_one({'Image_name' : request.form.get('Image_name'),'uploaded_image_name':uploaded_image.filename})
+    return render_template("feed.html")
 
 if __name__ == "__main__":
     app.run(debug = True)

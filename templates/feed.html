@@ -44,7 +44,6 @@
     a {
       text-decoration: none;
     }
-
     .uploading {
       border-radius: 8px;
       background-color: rgb(61, 173, 210);
@@ -84,9 +83,9 @@
         <br>
       </div>
       <div class="main-image">
-
+        <h3>Feed Page</h3>
+      <hr>
       </div>
-      <br>
       <div class="functions">
         <img src="{{url_for('static',filename='images/like.png')}}" class="like" width="4%" height="4%" alt="">
         <p> &nbsp; Count : </p>
@@ -99,19 +98,18 @@
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
     crossorigin="anonymous"></script>
   </head>
-
   <body>
-    <h4>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-      {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">
-        {{ message }}
-      </div>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
-    </h4>
+  <h4>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </h4>
   </body>
 
 </html>

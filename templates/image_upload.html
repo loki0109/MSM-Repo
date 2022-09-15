@@ -65,16 +65,15 @@
           <br>
     <h2>Image Upload Space</h2>
     <br>
-    <form method = "POST" enctype = "multipart/form-data" action = "/">
-        <input type = "file" id = "myfile" name = "uploaded-image" accept = ".jpg">
+    <form method = "POST" enctype = "multipart/form-data" action = "/image_upload">
+        <input type = "file" name = "uploaded_image" accept = ".jpg">
+        <br>
+        <br>
+        <p>Enter the name for the Image: <input type = "text" name = "Image_name"> </p>
+        <br>
         <input type = "submit" value = "Submit" class = "submitbtn" onclick="submit()">
     </form>
     <br>
-    <p style = "color:blue;"> Choose an image file to upload</p>
-    <form action = "/feed" target = "_blank">
-        <input type = "Submit" value = "Show image" />
-    </form>
-
     <script>
         function submit(){
             alert("Photo Uploaded successfully");
