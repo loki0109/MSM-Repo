@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/home_style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/feed_style.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <style>
       .image{
@@ -28,6 +28,9 @@
         background-size : cover;
         background-position : center;;
       }
+      a{
+            text-decoration: none;
+        }
     </style>
     </head>
     <body>
@@ -37,7 +40,7 @@
             <img src="{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="75" height="75">
               <a class="navbar-brand">MSM [Mini Social Media]</a>
               <form class="d-flex" role="search">
-                <button class="btn btn-outline-info" type="submit">Logout</button>
+                <button class="btn btn-outline-info" type="submit"><a href="/logout">Logout</a></button>
               </form>
             </div>
           </nav>
@@ -46,11 +49,11 @@
             <div class="flex-1">
               <div class="heading">
                 <br>
-                <h5>Name :</h5>
+                <h5>Name : {{ usern["name"] }}</h5>
                 <hr>
               </div>
               <div class="main-image">
-                <img src="{{url_for('static',filename='images/demo.jpeg')}}" class="like" width="25%" height="25%"  alt="">
+                <img src="{{url_for('static',filename='images/')}}" class="like" width="25%" height="25%"  alt="">
               </div>
               <br>
               <hr>

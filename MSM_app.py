@@ -1,17 +1,23 @@
 from ast import Pass
+import os
 from asyncio.windows_events import NULL
 from flask import Flask,render_template,request,Response,json,flash,redirect,url_for,session
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
+from flask_session import Session
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = "mongodb://localhost:27017/msm_db"
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
 
 db = mongo.db.users
 
 app.secret_key = "loki-1238sanmxg-dcj1248o"
+sessionvb = Session(app)
 
 @app.route("/signup",methods = ["POST", "GET"])
 def signup():  
@@ -39,20 +45,35 @@ def signup():
 @app.route("/login", methods = ["GET","POST"])
 def login():
     if request.method == "POST":
-        username = request.form["User_name"]
+        email = request.form["Email"]
         password = request.form["Password"]
-        name_pass = db.find_one({'User_name':username},{'_id':0,'Password':1})
-        print(bcrypt.check_password_hash(name_pass['Password'],password))
+        name_pass = db.find_one({'email':email},{'_id':0,'Password':1})
         if bcrypt.check_password_hash(name_pass['Password'],password):
+            session["email"] = email
             flash(f'User logged in successfully','success')
-            return redirect(url_for('home'))
+            return redirect(url_for('feed'))
         else:
             flash(f'Invalid credentials','danger')
     return render_template("login.html")
 
-@app.route("/home",methods = ["POST","GET"])
-def home():
-    return render_template("home.html")
+@app.route("/feed",methods = ["POST","GET"])
+def feed():
+    emailvar = session["email"]
+    sess_name = db.users.find({'email':emailvar})
+    usern=[]
+    for i in sess_name:
+        usern.append(i)
+        print(i)
+    return render_template("feed.html",usern=usern)
+
+@app.route("/homepage",methods = ["POST","GET"])
+def homepage():
+    return render_template("homepage.html")
+
+@app.route("/logout")
+def logout():
+    session["email"] = None
+    return redirect("/homepage")
 
 if __name__ == "__main__":
     app.run(debug = True)

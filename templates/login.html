@@ -12,7 +12,7 @@ body{
 }
 </style>
 <body>
-  <h4>
+  <h5>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         {% for category, message in messages %}
@@ -22,13 +22,13 @@ body{
         {% endfor %}
     {% endif %}
     {% endwith %}    
-</h4>
+</h5>
   <div class = "Login-form">
     <img src = "{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="120"
     height="120">
     <h1> Login Now </h1>
     <form name="login form" action = "/login" method="post">
-    <input type = "User_name" name ="User_name" class = "input-box" placeholder = "Username" required>
+    <input type = "Email" name ="Email" class = "input-box" placeholder = "Your Email" required>
     <input type = "Password" name = "Password" class = "input-box" placeholder = "Password" required>
     <button type = "submit" class = "login-btn">Login</button>
     <br>

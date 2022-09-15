@@ -1,21 +1,11 @@
-h4
-{
-    
-    border-radius : 10px;
-    box-shadow: 3px 3px 4px 0px rgba(50, 50, 50, 0.75);
-    margin : 10px 0;
-    margin-left: auto;
-	margin-right: auto;
-    width : 15%;
-    outline : none;
-    color : #44ae44;
+h4{
+    font-family : sans-serif;
+    color : #3045a0;
     text-align : center;
-    font-family : sans-serif;
+    margin : 10px 0; 
 }
-body
+h7
 {
     font-family : sans-serif;
-    background-image : url("static/images/hand.jpg");
-    background-size : cover;
-    background-position : center;
+
 }
