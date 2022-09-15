@@ -1,11 +1,11 @@
 from ast import Pass
 import os
 from asyncio.windows_events import NULL
+from re import template
 from flask import Flask,render_template,request,Response,json,flash,redirect,url_for,session
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from flask_session import Session
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = "mongodb://localhost:27017/msm_db"
@@ -74,6 +74,10 @@ def homepage():
 def logout():
     session["email"] = None
     return redirect("/homepage")
+    
+@app.route("/image_upload",methods = ["POST","GET"])
+def image_upload():
+    return render_template("image_upload.html")
 
 if __name__ == "__main__":
     app.run(debug = True)
