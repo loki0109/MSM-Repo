@@ -1,11 +1,11 @@
-h4
+.alert_message
 {
     border-radius : 12px;
     box-shadow: 3px 3px 4px 0px rgba(50, 50, 50, 0.75);
     margin : 10px 0;
-    margin-left: auto;
-	margin-right: auto;
-    width : 18%;
+    margin-left: 10px;
+	margin-right: 10px;
+    width : 10%;
     outline : none;
     color : #44ae44;
     text-align :center;

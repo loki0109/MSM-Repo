@@ -31,6 +31,7 @@
 
     .like {
       cursor: pointer;
+
     }
 
     body {
@@ -40,7 +41,9 @@
       background-position: center;
       ;
     }
-
+    p{
+      font-size: 24px;
+    }
     a {
       text-decoration: none;
     }
@@ -59,9 +62,7 @@
     }
   </style>
 </head>
-
 <body>
-
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
       <img src="{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="75" height="75"
@@ -76,7 +77,18 @@
       </form>
     </div>
   </nav>
-
+    <p class = "alert_message">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </p>
+    </body>
   <div class="container">
     <div class="flex-1">
       <div class="heading">
@@ -86,10 +98,21 @@
         <h3>Feed Page</h3>
       <hr>
       </div>
+      {% block body %}
+      {% for i in retrive_img %}
+      
+      <img src="{{i['filename']}}" width="100%" height="100%" alt="">
       <div class="functions">
-        <img src="{{url_for('static',filename='images/like.png')}}" class="like" width="4%" height="4%" alt="">
+        <br>
+        <img src="{{url_for('static',filename='images/like.png')}}" class="like" width="4%" height="4%" alt=""></a>
+        <br>
+        <hr>
         <p> &nbsp; Count : </p>
       </div>
+
+    {% endfor %}
+    {% endblock %}
+      <hr>
       <hr>
     </div>
     <div class="flex-2"></div>
@@ -97,19 +120,4 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
     crossorigin="anonymous"></script>
-  </head>
-  <body>
-  <h4>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="alert alert-{{ category }}">
-      {{ message }}
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-  </h4>
-  </body>
-
 </html>
