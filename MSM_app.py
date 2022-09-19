@@ -58,7 +58,7 @@ def login():
 
 @app.route("/homepage",methods = ["POST","GET"])
 def homepage():
-    return render_template("homepage.html")
+        return render_template("homepage.html")
 
 @app.route("/logout")
 def logout():
@@ -67,24 +67,24 @@ def logout():
     
 @app.route("/image_upload",methods = ["GET","POST"])
 def image_upload():
-    if "uploaded_image" in request.files :
+    if "uploaded_image" in request.files:
         uploaded_image = request.files['uploaded_image']
         mongo.save_file(uploaded_image.filename, uploaded_image)
-        mongo.db.photos.insert_one({'Image_name' : request.form.get('Image_name'),'uploaded_image_name':uploaded_image.filename})
+        mongo.db.photos.insert_one(
+            {'Image_name': request.form.get('Image_name'), 'uploaded_image_name': uploaded_image.filename})
         return redirect(url_for('feed'))
     return render_template("image_upload.html")
 
 @app.route("/feed",methods = ["POST","GET"])
 def feed():
-    retrive_img = list(mongo.db.fs.files.find({},{'_id':0}))
-    print(retrive_img[0]['filename'])
-    emailvar = session["email"]
-    sess_name = db.users.find({'email':emailvar})
-    usern=[]
-    for i in sess_name:
-        usern.append(i)
-        print(i)
-    return render_template("feed.html",usern=usern,retrive_img=retrive_img)
+        retrive_img = list(mongo.db.fs.files.find({},{'_id':0}))
+        emailvar = session["email"]
+        sess_name = db.users.find({'email':emailvar})
+        usern=[]
+        for i in sess_name:
+            usern.append(i)
+            print(i)
+        return render_template("feed.html",usern=usern,retrive_img=retrive_img)
 
 if __name__ == "__main__":
     app.run(debug = True)
