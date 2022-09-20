@@ -1,9 +1,5 @@
-from ast import Pass
-import os
-from asyncio.windows_events import NULL
-from re import template
 from flask import Flask,render_template,request,Response,json,flash,redirect,url_for,session
-from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo,ObjectId
 from flask_bcrypt import Bcrypt
 from flask_session import Session
 
@@ -77,14 +73,44 @@ def image_upload():
 
 @app.route("/feed",methods = ["POST","GET"])
 def feed():
-        retrive_img = list(mongo.db.fs.files.find({},{'_id':0}))
-        emailvar = session["email"]
-        sess_name = db.users.find({'email':emailvar})
-        usern=[]
-        for i in sess_name:
-            usern.append(i)
-            print(i)
-        return render_template("feed.html",usern=usern,retrive_img=retrive_img)
+    retrive_img = list(mongo.db.fs.files.find({}))    
+    emailvar = session["email"]
+    sess_name = db.users.find({'email':emailvar})
+    usern=[]
+    for i in sess_name:
+        usern.append(i)
+        print(i)
+    return render_template("feed.html",usern=usern,retrive_img=retrive_img)
+
+@app.route("/update",methods=["POST","GET"])
+def update():
+    if request.method == "POST":
+        old_name = request.form['old_name']
+        new_name = request.form['new_name']
+        update_find_all = list(mongo.db.photos.find({'Image_name':old_name},{'uploaded_image_name':0, '_id':0}))
+        if old_name == update_find_all[0]['Image_name']:
+            mongo.db.photos.update_one({'Image_name': old_name },{'$set':{'Image_name':new_name}})
+            flash(f'Updated Successfully','info')
+            return redirect(url_for('feed'))
+        else:
+            flash(f'Enter correct name','danger')
+    return render_template('update.html')
+        
+@app.route("/like_button",methods=["POST","GET"])
+def like_button():
+    print("========================")
+    data= request.args.get('like1')
+    print(data)
+    # like_var = 0
+    # for i in 'like_btn':
+    #     like_var = like_var+1
+    return redirect('/feed')
+
+@app.route("/delete/<id>",methods = ["POST","GET"])
+def delete(id):
+    print(id)
+    mongo.db.fs.files.delete_one({'_id':ObjectId(id)})
+    return redirect('/feed')
 
 if __name__ == "__main__":
     app.run(debug = True)

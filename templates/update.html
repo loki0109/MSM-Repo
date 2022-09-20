@@ -37,7 +37,7 @@
     h1{
         font-family : sans-serif;
     }
-    .submitbtn{
+    .submit_button{
         border-radius: 8px;
         background-color: rgb(61, 173, 210);
         border: none;
@@ -69,23 +69,40 @@
     </style>
 </head>
 <body>
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-            <img src="{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="75" height="75" class = "image">
-              <a class="navbar-brand">MSM [Mini Social Media]</a>
-              <form class="d-flex" role="search">
-                <button class="btn btn-outline-info" type="submit"><a href="/logout">Logout</a></button>
-              </form>
+ 
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+        <img src="{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="75" height="75" class = "image">
+            <a class="navbar-brand">MSM [Mini Social Media]</a>
+            <form class="d-flex" role="search">
+            <button class="btn btn-outline-info" type="submit"><a href="/logout">Logout</a></button>
+            </form>
+        </div>
+        </nav>
+        <br>
+        <p class = "alert_message">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              {{ message }}
             </div>
-          </nav>
-          <br>
-    <h2>Image Upload Space</h2>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </p>
+    <h2>Update Space</h2>
     <br>
-    <form method = "POST" enctype = "multipart/form-data" action = "/image_upload">
-        <input type = "file" name = "uploaded_image" accept = ".jpg">
+    <form action ="/update" method="POST">
+        <div class = "container"></div>
+        <label> Old Image Name :&nbsp;</label>   
+        <input type="text" name="old_name" placeholder= "Enter old Name" required /> 
         <br>
         <br>
-        <p>Enter the name for the Image: <input type = "text" name = "Image_name"> <input type = "submit" value = "Submit" class = "submitbtn"></p>
+        <label> New Image Name :</label>   
+        <input type="text" name="new_name" placeholder= "Enter new Name" required />
+        <button type = "submit" class = "submit_button">Rename</button>
+        <br>
         <br>
         <button class="back_btn" onclick="location.href='http://127.0.0.1:5000/feed'" type="button">Back</button>
     </form>

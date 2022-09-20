@@ -37,7 +37,7 @@
     h1{
         font-family : sans-serif;
     }
-    .submitbtn{
+    .submit_button{
         border-radius: 8px;
         background-color: rgb(61, 173, 210);
         border: none;
@@ -69,24 +69,32 @@
     </style>
 </head>
 <body>
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-            <img src="{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="75" height="75" class = "image">
-              <a class="navbar-brand">MSM [Mini Social Media]</a>
-              <form class="d-flex" role="search">
-                <button class="btn btn-outline-info" type="submit"><a href="/logout">Logout</a></button>
-              </form>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+        <img src="{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="75" height="75" class = "image">
+            <a class="navbar-brand">MSM [Mini Social Media]</a>
+            <form class="d-flex" role="search">
+            <button class="btn btn-outline-info" type="submit"><a href="/logout">Logout</a></button>
+            </form>
+        </div>
+        </nav>
+        <br>
+        <p class = "alert_message">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              {{ message }}
             </div>
-          </nav>
-          <br>
-    <h2>Image Upload Space</h2>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </p>
+    <h2>Delete Space</h2>
     <br>
-    <form method = "POST" enctype = "multipart/form-data" action = "/image_upload">
-        <input type = "file" name = "uploaded_image" accept = ".jpg">
-        <br>
-        <br>
-        <p>Enter the name for the Image: <input type = "text" name = "Image_name"> <input type = "submit" value = "Submit" class = "submitbtn"></p>
-        <br>
+    {% block body %}
+    <p>{{ retrive_imgname }}</p>
+    {% endblock %}    
         <button class="back_btn" onclick="location.href='http://127.0.0.1:5000/feed'" type="button">Back</button>
     </form>
     <br>

@@ -29,11 +29,6 @@
       display: flex;
     }
 
-    .like {
-      cursor: pointer;
-
-    }
-
     body {
       background-image: url("static/images/hand.jpg");
       font-family: sans-serif;
@@ -41,12 +36,15 @@
       background-position: center;
       ;
     }
-    p{
+
+    p {
       font-size: 24px;
     }
+
     a {
       text-decoration: none;
     }
+
     .uploading {
       border-radius: 8px;
       background-color: rgb(61, 173, 210);
@@ -60,64 +58,104 @@
       margin: 4px 2px;
       cursor: pointer;
     }
+
+    .like_btn {
+      border-radius: 6px;
+      background-color: rgb(61, 173, 210);
+      border: none;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    .del_btn{
+      color: rgb(220, 62, 30);
+      background-color: rgb(61, 173, 210);
+      border-radius: 6px;
+      border: none;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    .hr_css {
+      border: 1px solid rgb(62, 58, 173);
+    }
   </style>
 </head>
+
 <body>
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
       <img src="{{url_for('static',filename='images/msmlogo.jpeg')}}" alt="MSM_logo" width="75" height="75"
         class="image">
       <a class="navbar-brand">MSM [Mini Social Media]</a>
-      
+
       <form class="d-flex" role="search">
-        <button class = "btn btn-outline-info ml-10" type = "submit"><a href = "/image_upload">Upload</a></button>
+        <button class="btn btn-outline-info ml-10" type="submit"><a href="/update">Update</a></button>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <button class="btn btn-outline-info ml-10" type="submit"><a href="/image_upload">Upload</a></button>
+        &nbsp;
+        &nbsp;
         &nbsp;
         &nbsp;
         <button class="btn btn-outline-info ml-2" type="submit"><a href="/logout">Logout</a></button>
       </form>
     </div>
   </nav>
-    <p class = "alert_message">
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-      {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">
-        {{ message }}
-      </div>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
-    </p>
-    </body>
-  <div class="container">
-    <div class="flex-1">
-      <div class="heading">
-        <br>
-      </div>
-      <div class="main-image">
-        <h3>Feed Page</h3>
-      <hr>
-      </div>
-      {% block body %}
-      {% for i in retrive_img %}
-      
-      <img src="{{i['filename']}}" width="100%" height="100%" alt="">
-      <div class="functions">
-        <br>
-        <img src="{{url_for('static',filename='images/like.png')}}" class="like" width="4%" height="4%" alt="">
-        <br>
-        <hr>
-        <p> &nbsp; Count : </p>
-      </div>
-
-    {% endfor %}
-    {% endblock %}
-      <hr>
+  <p class="alert_message">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+  <div class="alert alert-{{ category }}">
+    {{ message }}
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  </p>
+</body>
+<div class="container">
+  <div class="flex-1">
+    <div class="heading">
+      <br>
+    </div>
+    <div class="main-image">
+      <h3>Feed Page</h3>
       <hr>
     </div>
-    <div class="flex-2"></div>
+    {% block body %}
+    {% for i in retrive_img %}
+    <hr class='hr_css'>
+    <img src="{{i['filename']}}" width="100%" height="100%" alt="{{ ['filename'] }}">
+    <div class="functions">
+      <button id='btn_id' class="like_btn" value="" name="like1" type="submit"> <a href="{{url_for('like_button')}}">
+          Like</a></button><img src="{{url_for('static',filename='images/like.png')}}" class="like" width="4%"
+        height="4%">
+      <script src="{{url_for('static',filename='js/index.js')}}"></script>
+      <br>
+      <p> &nbsp; Count : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+      {% set id = i['_id'] %}
+      <button class = "del_btn" type = "submit"><a href = "{{url_for('delete',id=id)}}">Delete</a></button>
+    </div>
+    {% endfor %}
+    {% endblock %}
+    <hr>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-    crossorigin="anonymous"></script>
+  <div class="flex-2"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
 </html>
