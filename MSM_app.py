@@ -67,7 +67,8 @@ def image_upload():
         uploaded_image = request.files['uploaded_image']
         mongo.save_file(uploaded_image.filename, uploaded_image)
         mongo.db.photos.insert_one(
-            {'Image_name': request.form.get('Image_name'), 'uploaded_image_name': uploaded_image.filename})
+            {'Image_name': request.form.get('Image_name'), 'uploaded_image_name': uploaded_image.filename,'like_counter':0})
+        mongo.db.fs.files.insert_one({'like_counter':0})
         return redirect(url_for('feed'))
     return render_template("image_upload.html")
 
@@ -96,20 +97,20 @@ def update():
             flash(f'Enter correct name','danger')
     return render_template('update.html')
         
-@app.route("/like_button",methods=["POST","GET"])
-def like_button():
+@app.route("/like_button/<id>",methods=["POST","GET"])
+def like_button(id):
     print("========================")
     data= request.args.get('like1')
     print(data)
-    # like_var = 0
-    # for i in 'like_btn':
-    #     like_var = like_var+1
+    print("========================")
+    print(data) 
     return redirect('/feed')
 
 @app.route("/delete/<id>",methods = ["POST","GET"])
 def delete(id):
     print(id)
     mongo.db.fs.files.delete_one({'_id':ObjectId(id)})
+    flash(f'Post Deleted Successfully','info')
     return redirect('/feed')
 
 if __name__ == "__main__":
